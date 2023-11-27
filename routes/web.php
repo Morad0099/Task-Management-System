@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/task', function(){
+    return view('tasksview');
+})->name('tasks');
+
 Route::get('/dashboard', function () {
     return view('userdash');
 })->middleware(['auth', 'verified'])->name('userdash');

@@ -1,5 +1,11 @@
 <x-app-layout>
     @include('partials.sidebar')
+    <x-header>
+    </x-header>
+    <x-mainPage>
+    </x-mainPage>
+    <x-footer>
+    </x-footer>
     <script>
         function submitForm() {
             var formData;
@@ -11,9 +17,10 @@
                 success: function(user) {
                     // Now that you have the user ID, set the hidden input value
                     $('#user_id').val(user.id);
+
                     // Now that you have the user ID, proceed with the AJAX request
-                    var formData = {
-                        user_id: user.id, // Assuming the user ID is available in the response
+                        formData = {
+                        user_id: $('#user_id').val(), // Assuming the user ID is available in the response
                         title: $('#title').val(),
                         description: $('#description').val(),
                         status: $('#status').val(),
@@ -28,6 +35,7 @@
                         dataType: 'json',
                         success: function(response) {
                             //Handle Success Response
+                            
                             console.log(response);
                             alert('Task created successfully')
                         },
@@ -35,7 +43,7 @@
                             //Handle Error Response
                             console.error(error);
                             alert('Failed adding task')
-                        }
+                        },
                     });
                 },
                 error: function (error) {
@@ -45,4 +53,5 @@
             });
         }
     </script>
+    
 </x-app-layout>

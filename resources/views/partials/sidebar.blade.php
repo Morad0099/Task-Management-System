@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -68,7 +68,7 @@
             /* Example color for the active link */
         }
     </style>
-</head>
+</head> --}}
 
 <body>
     <div class="wrapper">
@@ -80,10 +80,10 @@
 
             <ul class="list-unstyled components">
                 <li class="">
-                    <a href="#home">Home</a>
+                    <a href="{{route('userdash')}}">Home</a>
                 </li>
                 <li>
-                    <a href="#tasks">Tasks</a>
+                    <a href="{{route('tasks')}}">Tasks</a>
                 </li>
                 <li>
                     <a href="#projects">Projects</a>
@@ -93,9 +93,10 @@
         </nav>
 
         <!-- Page Content -->
-        <div class="container mt-5">
+        {{-- <div class="container mt-5">
             <h2>Create a New Task</h2>
             <form>
+                @csrf
                 <div class="form-group">
                     <label for="title">Title:</label>
                     <input type="text" class="form-control" id="title" name="title" required>
@@ -126,11 +127,11 @@
         </div>
 
         {{-- Bootstrap JS and Popper.js (for Bootstrap) --}}
-        {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> --}}
+        {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     </div>
 </body>
 
-</html>
+</html> --}}

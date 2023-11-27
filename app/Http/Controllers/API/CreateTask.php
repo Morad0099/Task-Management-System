@@ -14,7 +14,7 @@ class CreateTask extends Controller
 {
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            // 'id' => 'nullable|exists:users,id',
+            'id' => 'nullable|exists:users,id',
             'id' => 'nullable|exists:users,id',
             'title' => 'required|string',
             'description' => 'required|string',
@@ -51,13 +51,13 @@ class CreateTask extends Controller
                     "rate"=> $request->rate
                 ]);
 
-                if (!empty($transactionResult)) {
-                    throw new Exception($transactionResult);
-                }
-                return response()->json([
-                    "ok" => true,
-                    "msg" => "Task created successfully",
-                ]);
+                // if (!empty($transactionResult)) {
+                //     throw new Exception($transactionResult);
+                // }
+                // return response()->json([
+                //     "ok" => true,
+                //     "msg" => "Task created successfully",
+                // ]);
             } catch (\Throwable $th) {
                 Log::error("Failed creating task: " . $th->getMessage());
                 return response()->json([
