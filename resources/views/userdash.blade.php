@@ -7,51 +7,61 @@
     <x-footer>
     </x-footer>
     <script>
-        function submitForm() {
-            var formData;
-            //Fetch the UserId from the backend
-            $.ajax({
-                type: "GET",
-                url: '/api/fetchUserID',
-                dataType: 'json',
-                success: function(user) {
-                    // Now that you have the user ID, set the hidden input value
-                    $('#user_id').val(user.id);
+       
+        var formData = document.getElementById("task-form");
 
-                    // Now that you have the user ID, proceed with the AJAX request
-                        formData = {
-                        user_id: $('#user_id').val(), // Assuming the user ID is available in the response
-                        title: $('#title').val(),
-                        description: $('#description').val(),
-                        status: $('#status').val(),
-                        due_date: $('#due_date').val(),
-                        rate: $('#rate').val()
-                    };
-                    //Send AJAX Request
-                    $.ajax({
-                        type: 'POST',
-                        url: '/api/create',
-                        data: formData,
-                        dataType: 'json',
-                        success: function(response) {
-                            //Handle Success Response
-                            
-                            console.log(response);
-                            alert('Task created successfully')
-                        },
-                        error: function(error) {
-                            //Handle Error Response
-                            console.error(error);
-                            alert('Failed adding task')
-                        },
+        $(formData).submit(function(e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Are you sure you want to make a task?',
+                text: "Or click cancel to abort!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Submit'
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire({
+                        text: "Adding task, please wait...",
+                        showConfirmButton: false,
+                        allowEscapeKey: false,
+                        allowOutsideClick: false
                     });
-                },
-                error: function (error) {
-                    console.error(error);
-                    alert('Failed fetching user id')
+
+                    // Collect form data
+                    var formData = new FormData(document.getElementById("task-form"));
+
+                    $.ajax({
+                            type: 'POST',
+                            url: '{{ route('create') }}',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                        })
+                        .done(function(data) {
+                            Swal.fire({
+                                text: data.msg,
+                                type: data.ok ? "success" : "error"
+                            });
+
+                            if (data.ok) {
+                                // Reset the form after successful submission
+                                formData.reset();
+                            }
+                        })
+                        .fail(function(err) {
+                            console.error(err);
+                            Swal.fire({
+                                text: "Adding failed",
+                                type: "error"
+                            });
+                        });
                 }
             });
-        }
+        });
+        
     </script>
-    
+
 </x-app-layout>

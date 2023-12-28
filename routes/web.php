@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\task;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +21,13 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/task', function(){
-    return view('tasksview');
-})->name('tasks');
+// Route::get('/task', function(){
+//     return view('tasksview');
+// })->name('tasks');
+Route::get('/task', [task::class,"task_view"])->name('tasks');
 
 Route::get('/dashboard', function () {
+    // dd($request->all());
     return view('userdash');
 })->middleware(['auth', 'verified'])->name('userdash');
 
